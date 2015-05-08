@@ -1,0 +1,14 @@
+template(name='complexLayout')
+  .left
+    | {{> yield region="menu"}}
+  .main
+    | {{> yield}}
+  .bottom
+    | {{> yield region="footer"}}
+
+template(name='hello')
+  button Click Me
+  p You've pressed the button {{counter}} times.
+  
+template(name='index')
+  p You saw the index template
