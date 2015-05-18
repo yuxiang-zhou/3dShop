@@ -1,0 +1,9 @@
+<template name="packagesGrid">
+  <div class="available-pkg-grid">
+    {{#each reactionApps provides='dashboard'}}
+      <div class="col-sm-3">
+        {{> gridPackage}}
+      </div>
+    {{/each}}
+  </div>
+</template>

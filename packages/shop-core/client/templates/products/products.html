@@ -1,0 +1,12 @@
+<template name="products">
+  {{>productGrid}}
+</template>
+
+<template name="productListGrid">
+  <div class="row">
+    {{>productGrid}}
+    {{#if userHasRole "admin"}}
+      {{>productList}}
+    {{/if}}
+  </div>
+</template>
