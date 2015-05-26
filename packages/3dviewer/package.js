@@ -40,6 +40,7 @@ Package.onUse(function (api) {
         "client/OBJLoader.js",
         "client/OBJMTLLoader.js",
 
+        "viewer_template.css",
         "viewer_template.html",
         "viewer_template.coffee"
     ], ['client']);

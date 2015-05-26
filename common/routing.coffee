@@ -50,6 +50,11 @@ Router.map ->
             controller: ShopController
             name: page
 
+    # display products by tag
+    @route 'demo3d',
+        path: 'demo3d'
+        template: "demo3d"
+       
     # custom 404 Page
     @route "notFound",
         path: "/(.*)"

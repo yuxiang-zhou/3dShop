@@ -34,7 +34,7 @@ Template.viewer3d.rendered = ->
 
         init = ->
             # container
-            container = Template.instance().$('.container').get(0)
+            container = Template.instance().$('.container3d').get(0)
             imgurl = container.getAttribute('src')
             width = container.clientWidth
             height = container.clientHeight
