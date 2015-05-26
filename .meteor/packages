@@ -41,3 +41,4 @@ nemo64:bootstrap
 iron:router
 mquandalle:jade
 3dshop:core
+3dshop:3d-viewer
