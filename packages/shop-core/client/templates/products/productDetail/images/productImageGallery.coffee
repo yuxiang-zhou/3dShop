@@ -1,4 +1,5 @@
 Media = ReactionCore.Collections.Media
+Media3D = ReactionCore.Collections.Media3D
 
 # *****************************************************
 # Template.productImageGallery.helpers
@@ -69,6 +70,22 @@ uploadHandler = (event, template) ->
     Media.insert fileObj
     count++
 
+uploadHandler3D = (event, template) ->
+  productId = selectedProductId()
+  variantId = selectedVariantId()
+  userId = Meteor.userId()
+  count = Media3D.find({'metadata.variantId': variantId }).count()
+  FS.Utility.eachFile event, (file) ->
+    fileObj = new FS.File(file)
+    fileObj.metadata =
+      ownerId: userId
+      productId: productId
+      variantId: variantId
+      shopId: ReactionCore.getShopId()
+      priority: count
+    Media3D.insert fileObj
+    count++
+
 Template.productImageGallery.events
   "mouseenter .gallery > li": (event, template) ->
       event.stopImmediatePropagation()
@@ -110,7 +127,7 @@ Template.productImageGallery.events
     @remove()
     return
 
-  "dropped #galleryDropPane": uploadHandler
+  # "dropped #galleryDropPane": uploadHandler
 
 Template.imageUploader.events
   "click #btn-upload": (event,template) ->
@@ -125,3 +142,24 @@ Template.productImageGallery.events
     $("#files").click()
   'load .img-responsive': (event, template) ->
     Session.set('variantImgSrc', template.$('.img-responsive').attr 'src')
+
+Template.image3D.events
+  "dropped #dropzone3D": uploadHandler3D
+
+Template.image3D.helpers
+  media3d: ->
+    mediaArray = []
+    variant = selectedVariant()
+    if variant
+      mediaArray = Media3D.find({'metadata.variantId':variant._id}, {sort: {'metadata.priority': 1}})
+      if !Roles.userIsInRole(Meteor.user(), "admin") and !@isOwner and mediaArray.count() < 1
+        mediaArray = Media3D.find({'metadata.variantId':selectedProduct().variants[0]._id}, {sort: {'metadata.priority': 1}})
+    else
+      # If no variant selected, get Media3D for all product variants
+      prod = selectedProduct()
+      if prod
+        ids = []
+        for v in prod.variants
+          ids.push v._id
+        Media3DArray = Media3D.find({'metadata.variantId': { $in: ids}}, {sort: {'metadata.priority': 1}})
+    return mediaArray

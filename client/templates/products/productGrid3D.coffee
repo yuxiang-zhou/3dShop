@@ -1,0 +1,1 @@
+Template.productGridItems3D.replaces "productGridItems"

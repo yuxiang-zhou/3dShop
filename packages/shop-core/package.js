@@ -68,6 +68,7 @@ Package.onUse(function (api) {
   api.use("cfs:standard-packages@0.5.8");
   api.use("cfs:graphicsmagick@0.0.18");
   api.use("cfs:gridfs@0.0.33");
+  api.use("cfs:filesystem")
   api.use("cfs:filesystem@0.1.2");
   api.use("cfs:ui@0.1.3");
   api.use("raix:ui-dropped-event@0.0.7");
@@ -88,6 +89,7 @@ Package.onUse(function (api) {
   api.imply("cfs:graphicsmagick");
   api.imply("cfs:filesystem");
   api.imply("cfs:gridfs");
+  api.imply("cfs:filesystem")
   api.imply("raix:ui-dropped-event");
   api.imply("matb33:collection-hooks");
   api.imply("alanning:roles");

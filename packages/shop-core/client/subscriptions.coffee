@@ -34,6 +34,7 @@ ReactionCore.Subscriptions.orders = Meteor.subscribe "orders"
 ReactionCore.Subscriptions.customers = Meteor.subscribe "customers"
 ReactionCore.Subscriptions.tags = Meteor.subscribe "tags"
 ReactionCore.Subscriptions.media = Meteor.subscribe "media"
+ReactionCore.Subscriptions.media3d = Meteor.subscribe "media3d"
 
 ###
 # Autorun dependencies

@@ -2,6 +2,7 @@ Cart  = ReactionCore.Collections.Cart
 Accounts = ReactionCore.Collections.Accounts
 Discounts = ReactionCore.Collections.Discounts
 Media = ReactionCore.Collections.Media
+Media3D = ReactionCore.Collections.Media3D
 Orders = ReactionCore.Collections.Orders
 Packages = ReactionCore.Collections.Packages
 Products = ReactionCore.Collections.Products
@@ -35,6 +36,9 @@ Meteor.publish 'Sessions', (id) ->
 ###
 Meteor.publish "media", ->
   return Media.find({ 'metadata.shopId': ReactionCore.getShopId(@) }, {sort: {"metadata.priority": 1}})
+
+Meteor.publish "media3d", ->
+  return Media3D.find({ 'metadata.shopId': ReactionCore.getShopId(@) }, {sort: {"metadata.priority": 1}})
 
 ###
 # i18n - translations

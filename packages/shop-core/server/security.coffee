@@ -19,6 +19,7 @@ Cart = ReactionCore.Collections.Cart
 Customers = ReactionCore.Collections.Customers
 Discounts = ReactionCore.Collections.Discounts
 Media = ReactionCore.Collections.Media
+Media3D = ReactionCore.Collections.Media3D
 Orders = ReactionCore.Collections.Orders
 Packages = ReactionCore.Collections.Packages
 Products = ReactionCore.Collections.Products
@@ -88,7 +89,7 @@ Security.permit(['insert', 'update', 'remove'])
 # Permissive security for users with the 'admin' role for FS.Collections
 ###
 Security.permit(['insert', 'update', 'remove'])
-  .collections([Media])
+  .collections([Media, Media3D])
   .ifHasRole('admin')
   .ifFileBelongsToShop()
   # TODO should be a check here or elsewhere to

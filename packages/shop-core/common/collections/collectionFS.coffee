@@ -45,3 +45,11 @@ ReactionCore.Collections.Media = new FS.Collection "media",
   filter:
     allow:
       contentTypes: ["image/*"]
+
+
+ReactionCore.Collections.Media3D = new FS.Collection "media3d",
+  stores: [
+    new FS.Store.FileSystem("data", {path: "~/models"}) #Original Data
+  ]
+  filter:
+    maxSize: 1048576 * 100
