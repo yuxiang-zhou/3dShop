@@ -126,6 +126,6 @@ Cart.permit('update').ifUserIdMatches().exceptProps(['shopId']).apply()
 
 # Allow anonymous file downloads
 # XXX This is probably not actually how we want to handle file download security.
-_.each [ Media ], (fsCollection) ->
+_.each [ Media, Media3D ], (fsCollection) ->
   fsCollection.allow
     download: -> return true

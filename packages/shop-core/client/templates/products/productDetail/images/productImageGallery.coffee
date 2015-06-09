@@ -83,6 +83,7 @@ uploadHandler3D = (event, template) ->
       variantId: variantId
       shopId: ReactionCore.getShopId()
       priority: count
+      ext: fileObj.original.name.split('.').pop()
     Media3D.insert fileObj
     count++
 
@@ -146,20 +147,84 @@ Template.productImageGallery.events
 Template.image3D.events
   "dropped #dropzone3D": uploadHandler3D
 
+loadObjFiles = ->
+  mediaArray = []
+  variant = selectedVariant()
+  if variant
+    mediaArray = Media3D.find({
+      'metadata.variantId':variant._id,
+      'metadata.ext':'obj'
+    }, {
+      sort: {'metadata.priority': 1}
+    })
+
+    if !Roles.userIsInRole(Meteor.user(), "admin") and !@isOwner and mediaArray.count() < 1
+      mediaArray = Media3D.find({
+        'metadata.variantId':selectedProduct().variants[0]._id,
+        'metadata.ext':'obj'
+      }, {
+        sort: {'metadata.priority': 1}
+      })
+
+  else
+    # If no variant selected, get Media3D for all product variants
+    prod = selectedProduct()
+    if prod
+      ids = []
+      for v in prod.variants
+        ids.push v._id
+      mediaArray = Media3D.find({
+        'metadata.variantId': { $in: ids},
+        'metadata.ext':'obj'
+      }, {
+        sort: {'metadata.priority': 1}
+      })
+
+  return mediaArray
+
+load3DFiles = ->
+  mediaArray = []
+  variant = selectedVariant()
+  if variant
+    mediaArray = Media3D.find({
+      'metadata.variantId':variant._id
+    }, {
+      sort: {'metadata.priority': 1}
+    })
+
+    if !Roles.userIsInRole(Meteor.user(), "admin") and !@isOwner and mediaArray.count() < 1
+      mediaArray = Media3D.find({
+        'metadata.variantId':selectedProduct().variants[0]._id
+      }, {
+        sort: {'metadata.priority': 1}
+      })
+
+  else
+    # If no variant selected, get Media3D for all product variants
+    prod = selectedProduct()
+    if prod
+      ids = []
+      for v in prod.variants
+        ids.push v._id
+      mediaArray = Media3D.find({
+        'metadata.variantId': { $in: ids}
+      }, {
+        sort: {'metadata.priority': 1}
+      })
+
+  return mediaArray
+
+
 Template.image3D.helpers
   media3d: ->
-    mediaArray = []
-    variant = selectedVariant()
-    if variant
-      mediaArray = Media3D.find({'metadata.variantId':variant._id}, {sort: {'metadata.priority': 1}})
-      if !Roles.userIsInRole(Meteor.user(), "admin") and !@isOwner and mediaArray.count() < 1
-        mediaArray = Media3D.find({'metadata.variantId':selectedProduct().variants[0]._id}, {sort: {'metadata.priority': 1}})
-    else
-      # If no variant selected, get Media3D for all product variants
-      prod = selectedProduct()
-      if prod
-        ids = []
-        for v in prod.variants
-          ids.push v._id
-        Media3DArray = Media3D.find({'metadata.variantId': { $in: ids}}, {sort: {'metadata.priority': 1}})
-    return mediaArray
+    return loadObjFiles()
+
+  mediadb: ->
+    files = load3DFiles().fetch()
+    file_table = {}
+
+    for f in files
+      name = f.original.name
+      file_table[name] = f.url()
+
+    return JSON.stringify file_table

@@ -5,53 +5,56 @@
  * @author angelxuanchang
  */
 
-THREE.OBJMTLLoader = function ( manager ) {
+THREE.OBJMTLLoader = function ( manager, urlTable ) {
 
     this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
-
+    this.urlTable = (urlTable !== undefined && urlTable !== null) ? urlTable : {};
 };
 
 THREE.OBJMTLLoader.prototype = {
 
     constructor: THREE.OBJMTLLoader,
 
-    load: function ( url, mtlurl, onLoad, onProgress, onError ) {
+    load: function ( url, onLoad, onProgress, onError ) {
 
         var scope = this;
 
-        var mtlLoader = new THREE.MTLLoader( url.substr( 0, url.lastIndexOf( "/" ) + 1 ) );
+        var mtlLoader = new THREE.MTLLoader( url.substr( 0, url.lastIndexOf( "/" ) + 1 ), this.urlTable );
         mtlLoader.crossOrigin = scope.crossOrigin;
-        mtlLoader.load( mtlurl, function ( materials ) {
 
-            var materialsCreator = materials;
-            materialsCreator.preload();
+        var materialsCreator = null;
+        var loader = new THREE.XHRLoader( scope.manager );
+        loader.setCrossOrigin( scope.crossOrigin );
+        loader.load( url, function ( text ) {
 
-            var loader = new THREE.XHRLoader( scope.manager );
-            loader.setCrossOrigin( scope.crossOrigin );
-            loader.load( url, function ( text ) {
+            var obj = scope.parse( text, function (mtlfilename) {
+                var predef_url = scope.urlTable[mtlfilename];
+                var mtlurl = predef_url ? predef_url : mtlLoader.baseUrl + mtlfilename;
+                mtlLoader.load( mtlurl, function ( materials ) {
+                    
+                    materialsCreator = materials;
+                    materialsCreator.preload();
 
-                var object = scope.parse( text );
+                    obj.traverse( function ( object ) {
+                        
+                        if ( object instanceof THREE.Mesh ) {
 
-                object.traverse( function ( object ) {
+                            if ( object.material.name && materialsCreator) {
 
+                                var material = materialsCreator.create( object.material.name );
 
-                    if ( object instanceof THREE.Mesh ) {
+                                if ( material ) object.material = material;
 
-                        if ( object.material.name ) {
-
-                            var material = materialsCreator.create( object.material.name );
-
-                            if ( material ) object.material = material;
+                            }
 
                         }
 
-                    }
+                    } );
 
-                } );
+                    onLoad( obj );
 
-                onLoad( object );
-
-            }, onProgress, onError );
+                }, onProgress, onError );
+            } );
 
         }, onProgress, onError );
 
@@ -232,8 +235,11 @@ THREE.OBJMTLLoader.prototype = {
 
         var lines = data.split( "\n" );
 
-        for ( var i = 0; i < lines.length; i ++ ) {
+        //
 
+        var mtlfile = "";
+
+        for ( var i = 0; i < lines.length; i ++ ) {
             var line = lines[ i ];
             line = line.trim();
 
@@ -333,14 +339,8 @@ THREE.OBJMTLLoader.prototype = {
             } else if ( /^mtllib /.test( line ) ) {
 
                 // mtl file
-
-                if ( mtllibCallback ) {
-
-                    var mtlfile = line.substring( 7 );
-                    mtlfile = mtlfile.trim();
-                    mtllibCallback( mtlfile );
-
-                }
+                mtlfile = line.substring( 7 );
+                mtlfile = mtlfile.trim();
 
             } else if ( /^s /.test( line ) ) {
 
@@ -356,6 +356,10 @@ THREE.OBJMTLLoader.prototype = {
 
         //Add last object
         meshN(undefined, undefined);
+
+        if ( mtllibCallback ) {
+            mtllibCallback( mtlfile );
+        }
 
         return group;
 

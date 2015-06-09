@@ -4,9 +4,10 @@
  * @author angelxuanchang
  */
 
-THREE.MTLLoader = function( baseUrl, options, crossOrigin ) {
+THREE.MTLLoader = function( baseUrl, urlTable, options, crossOrigin ) {
 
 	this.baseUrl = baseUrl;
+	this.urlTable = (urlTable !== undefined) ? urlTable : {};
 	this.options = options;
 	this.crossOrigin = crossOrigin;
 
@@ -86,7 +87,7 @@ THREE.MTLLoader.prototype = {
 
 		}
 
-		var materialCreator = new THREE.MTLLoader.MaterialCreator( this.baseUrl, this.options );
+		var materialCreator = new THREE.MTLLoader.MaterialCreator( this.baseUrl, this.urlTable, this.options );
 		materialCreator.crossOrigin = this.crossOrigin
 		materialCreator.setMaterials( materialsInfo );
 		return materialCreator;
@@ -112,9 +113,10 @@ THREE.MTLLoader.prototype = {
  * @constructor
  */
 
-THREE.MTLLoader.MaterialCreator = function( baseUrl, options ) {
+THREE.MTLLoader.MaterialCreator = function( baseUrl, urlTable, options ) {
 
 	this.baseUrl = baseUrl;
+	this.urlTable = urlTable;
 	this.options = options;
 	this.materialsInfo = {};
 	this.materials = {};
@@ -265,6 +267,13 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 	},
 
+	getFileURL: function(name) {
+		var predef_url = this.urlTable[name];
+        var mtlurl = predef_url ? predef_url : this.baseUrl + name;
+        // mtlurl = mtlurl.substr( 0, url.lastIndexOf( "?" ) )
+		return mtlurl;
+	},
+
 	createMaterial_: function ( materialName ) {
 
 		// Create material
@@ -310,7 +319,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 					// Diffuse texture map
 
-					params[ 'map' ] = this.loadTexture( this.baseUrl + value );
+					params[ 'map' ] = this.loadTexture( this.getFileURL(value) );
 					params[ 'map' ].wrapS = this.wrap;
 					params[ 'map' ].wrapT = this.wrap;
 
@@ -347,7 +356,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 					if ( params[ 'bumpMap' ] ) break; // Avoid loading twice.
 
-					params[ 'bumpMap' ] = this.loadTexture( this.baseUrl + value );
+					params[ 'bumpMap' ] = this.loadTexture( this.getFileURL(value) );
 					params[ 'bumpMap' ].wrapS = this.wrap;
 					params[ 'bumpMap' ].wrapT = this.wrap;
 

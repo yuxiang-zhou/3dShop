@@ -9,8 +9,9 @@
      </li>
     {{/each}}
   </ul>
-  {{> image3D}}
   {{> imageUploader}}
+  {{> image3D}}
+  
 </div>
 
 </template>
@@ -40,13 +41,15 @@
 
 <template name="image3D">
 {{#if userHasRole "admin"}}
+  <h3>3D Models</h3>
   <div id="dropzone3D" class="dropzone">
     <div class="" id="btn-upload3d" data-i18n="productDetail.dropFile3D">Drag and Drop file to upload</div>
   </div>
 {{/if}}
 {{#each media3d}}
   <div>
-    {{> viewer3d imgurl=objurl }}
+    {{> viewer3d imgurl=this.url db=mediadb}}
   </div>
 {{/each}}
+  <hr>
 </template>
