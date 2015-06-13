@@ -27,7 +27,7 @@ THREE.OBJMTLLoader.prototype = {
         loader.setCrossOrigin( scope.crossOrigin );
         loader.load( url, function ( text ) {
 
-            var obj = scope.parse( text, function (mtlfilename) {
+            var obj = scope.parse( text, function (mtlfilename, gobj) {
                 var predef_url = scope.urlTable[mtlfilename];
                 var mtlurl = predef_url ? predef_url : mtlLoader.baseUrl + mtlfilename;
                 mtlLoader.load( mtlurl, function ( materials ) {
@@ -35,7 +35,7 @@ THREE.OBJMTLLoader.prototype = {
                     materialsCreator = materials;
                     materialsCreator.preload();
 
-                    obj.traverse( function ( object ) {
+                    gobj.traverse( function ( object ) {
                         
                         if ( object instanceof THREE.Mesh ) {
 
@@ -51,7 +51,7 @@ THREE.OBJMTLLoader.prototype = {
 
                     } );
 
-                    onLoad( obj );
+                    onLoad( gobj );
 
                 }, onProgress, onError );
             } );
@@ -358,10 +358,10 @@ THREE.OBJMTLLoader.prototype = {
         meshN(undefined, undefined);
 
         if ( mtllibCallback ) {
-            mtllibCallback( mtlfile );
+            mtllibCallback( mtlfile, group);
+        } else {
+            return group;
         }
-
-        return group;
 
     }
 

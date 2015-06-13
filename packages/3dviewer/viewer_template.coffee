@@ -7,6 +7,11 @@ Template.viewer3d.rendered = ->
     windowHalfX = width / 2
     windowHalfY = height / 2
 
+    # control
+    moveForward = false
+    moveBackward = false
+    zoomSpeed = 500
+
     # sence
     scene = null
 
@@ -57,9 +62,6 @@ Template.viewer3d.rendered = ->
     renderer.setPixelRatio window.devicePixelRatio
     renderer.setSize width, height
 
-    window.addEventListener 'resize', onWindowResize, false
-    container.appendChild renderer.domElement
-
     onWindowResize = ->
 
         width = container.clientWidth
@@ -75,6 +77,29 @@ Template.viewer3d.rendered = ->
 
         # controls.handleResize()
 
+    onMouseDown = (event) ->
+        
+        event.preventDefault()
+        event.stopPropagation()
+
+        switch event.button
+            when 0 then moveForward = true
+            when 2 then moveBackward = true
+
+    onMouseUp = (event) ->
+        
+        event.preventDefault()
+        event.stopPropagation()
+
+        switch event.button
+            when 0 then moveForward = false
+            when 2 then moveBackward = false
+
+    window.addEventListener 'resize', onWindowResize, false
+    container.appendChild renderer.domElement
+    container.addEventListener 'mousedown', onMouseDown, false
+    container.addEventListener 'mouseup', onMouseUp, false
+
     animate = ->
         if renderer
             requestAnimationFrame animate
@@ -84,7 +109,13 @@ Template.viewer3d.rendered = ->
         delta = clock.getDelta()
 
         # controls.update delta
-        object.rotation.y += 0.05 * Math.random()
+        object.rotation.y += delta
+
+        if moveForward
+            camera.position.z -= zoomSpeed*delta
+
+        if moveBackward
+            camera.position.z += zoomSpeed*delta
 
         renderer.render scene, camera
 

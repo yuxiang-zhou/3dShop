@@ -1,7 +1,6 @@
 .container3d {
-	float: left;
-	height: 200px;
-	width: 200px;
+	height: 300px;
+	width: 300px;
 	border-width: 1px;
 	border-color: #000;
 	border-style: solid;
