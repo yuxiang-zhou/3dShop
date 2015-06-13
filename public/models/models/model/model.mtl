@@ -6,8 +6,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_beige_new.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_beige_new.jpg
+map_Ks skin_s.jpg
 map_Ka skin_beige_new.jpg
 newmtl W_Shoes_skin
 Ka 0.231000 0.231000 0.231000
@@ -16,8 +16,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_beige_new.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_beige_new.jpg
+map_Ks skin_s.jpg
 map_Ka skin_beige_new.jpg
 newmtl dummy
 Ka 0.000000 0.000000 0.000000
@@ -26,7 +26,7 @@ Ks 0.000000 0.000000 0.000000
 Ns 5.000000
 illum 2
 d 1.000000
-map_d C:/Users/admin/AppData/Local/Temp/clo3d/1101/transparency.png
+map_d transparency.png
 newmtl W_Shoes_red
 Ka 0.000000 0.000000 0.000000
 Kd 0.800000 0.000000 0.000000
@@ -41,8 +41,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_nudes.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_nudes.jpg
+map_Ks skin_s.jpg
 map_Ka skin_nudes.jpg
 newmtl Shoes_heel_rubber
 Ka 0.000000 0.000000 0.000000
@@ -58,8 +58,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_nudes.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_nudes.jpg
+map_Ks skin_s.jpg
 map_Ka skin_nudes.jpg
 newmtl dummy
 Ka 0.000000 0.000000 0.000000
@@ -68,7 +68,7 @@ Ks 0.000000 0.000000 0.000000
 Ns 5.000000
 illum 2
 d 1.000000
-map_d C:/Users/admin/AppData/Local/Temp/clo3d/1101/transparency.png
+map_d transparency.png
 newmtl W_eye
 Ka 0.231000 0.231000 0.231000
 Kd 1.000000 1.000000 1.000000
@@ -76,7 +76,7 @@ Ks 0.000000 0.000000 0.000000
 Ns 100.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/eye_2.jpg
+map_Kd eye_2.jpg
 map_Ka eye_2.jpg
 newmtl W_eye_specular_Light
 Ka 0.000000 0.000000 0.000000
@@ -85,7 +85,7 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_d C:/Users/admin/AppData/Local/Temp/clo3d/1101/eye_light.png
+map_d eye_light.png
 newmtl W_body
 Ka 0.400000 0.360000 0.340000
 Kd 1.000000 1.000000 1.000000
@@ -93,7 +93,7 @@ Ks 0.120000 0.120000 0.120000
 Ns 7.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/W_body_west_lingerie.jpg
+map_Kd W_body_west_lingerie.jpg
 map_Ka W_body_west_lingerie.jpg
 newmtl W_hand_leg
 Ka 0.400000 0.360000 0.340000
@@ -102,7 +102,7 @@ Ks 0.120000 0.120000 0.120000
 Ns 7.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/W_leg_hand_west.jpg
+map_Kd W_leg_hand_west.jpg
 map_Ka W_leg_hand_west.jpg
 newmtl W_eyelashes
 Ka 0.000000 0.000000 0.000000
@@ -118,7 +118,7 @@ Ks 0.120000 0.120000 0.120000
 Ns 7.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/W_face_west.jpg
+map_Kd W_face_west.jpg
 map_Ka W_face_west.jpg
 newmtl W_face_hair
 Ka 0.400000 0.360000 0.340000
@@ -127,7 +127,7 @@ Ks 0.120000 0.120000 0.120000
 Ns 7.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/Public/Documents/CLO3D/Assets_ver_2.2.75/Avatar/Hair/Female_Hair/Female_Ponytail/W_face_west.jpg
+map_Kd W_face_west.jpg
 map_Ka W_face_west.jpg
 newmtl W_Shoes_skin
 Ka 0.231000 0.231000 0.231000
@@ -136,8 +136,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_beige_new.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_beige_new.jpg
+map_Ks skin_s.jpg
 map_Ka skin_beige_new.jpg
 newmtl W_Shoes_outsole
 Ka 0.231000 0.231000 0.231000
@@ -146,8 +146,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_nudes.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_nudes.jpg
+map_Ks skin_s.jpg
 map_Ka skin_nudes.jpg
 newmtl W_hair
 Ka 0.000000 0.000000 0.000000
@@ -156,8 +156,8 @@ Ks 0.250000 0.250000 0.250000
 Ns 7.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/Public/Documents/CLO3D/Assets_ver_2.2.75/Avatar/Hair/Female_Hair/Female_Ponytail/woman_hair.png
-map_d C:/Users/Public/Documents/CLO3D/Assets_ver_2.2.75/Avatar/Hair/Female_Hair/Female_Ponytail/woman_hair.png
+map_Kd woman_hair.png
+map_d woman_hair.png
 map_Ka woman_hair.png
 newmtl W_Shoes_red
 Ka 0.000000 0.000000 0.000000
@@ -173,7 +173,7 @@ Ks 0.050000 0.050000 0.050000
 Ns 6.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/Public/Documents/CLO3D/Assets_ver_2.2.75/Avatar/Hair/Female_Hair/Female_Ponytail/cap.jpg
+map_Kd cap.jpg
 map_Ka cap.jpg
 newmtl W_Shoes_front_heel
 Ka 0.231000 0.231000 0.231000
@@ -182,8 +182,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_beige_new.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_beige_new.jpg
+map_Ks skin_s.jpg
 map_Ka skin_beige_new.jpg
 newmtl Shoes_heel_rubber
 Ka 0.000000 0.000000 0.000000
@@ -199,8 +199,8 @@ Ks 1.000000 1.000000 1.000000
 Ns 2.000000
 illum 2
 d 1.000000
-map_Kd C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_nudes.jpg
-map_Ks C:/Users/admin/AppData/Local/Temp/clo3d/1101/skin_s.jpg
+map_Kd skin_nudes.jpg
+map_Ks skin_s.jpg
 map_Ka skin_nudes.jpg
 newmtl W_hair_bend
 Ka 0.000000 0.000000 0.000000
