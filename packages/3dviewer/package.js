@@ -39,11 +39,15 @@ Package.onUse(function (api) {
         "client/MTLLoader.js",
         "client/OBJLoader.js",
         "client/OBJMTLLoader.js",
+        "client/web3dviewer.js",
 
         "viewer_template.css",
-        "viewer_template.html",
-        "viewer_template.coffee"
+        "viewer_template_new.html",
+        "viewer_template_new.js",
+        //"viewer_template.html",
+        //"viewer_template.coffee"
     ], ['client']);
 
     api.export(['THREE'], 'client');
+    api.export(['Web3DViewer'], 'client');
 });

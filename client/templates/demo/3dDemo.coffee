@@ -2,11 +2,10 @@ Template.demo3d.helpers
     objects: ->
         objs = []
 
-        for i in [2..4]
-            objs.push
-                imgurl: 'models/'+i+'/'+i+'.obj'
+        objs.push
+            mdlArr : JSON.stringify(['models/models/model/model.obj', 'models/models/dress1/dress1.obj'])
 
         objs.push
-                imgurl: 'models/'+0+'/'+0+'.obj'
+            mdlArr: JSON.stringify(['models/models/model/model.obj', 'models/models/dress2/dress2.obj'])
 
         return objs
