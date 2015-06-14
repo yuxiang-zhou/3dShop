@@ -65,25 +65,38 @@ Web3DViewer.prototype._load = function(obj_info_list, on_complete) {
         var loader = new THREE.OBJMTLLoader(undefined, obj_info.url_map);
 
         var load_cnt = 0, load_total = len;
-        var processor_fn = this._process_object;
 
-        loader.load(obj_info.url, function(object) {
+        var self = this;
+        console.log(obj_info);
+
+        loader.load(obj_info.url, function(obj_info, object) {
                 console.log("Finish loading " + obj_info.url);
 
-                processor_fn(object, obj_info);
+                // translation
+                var translation = obj_info['translation']
+                if (translation) {
+                    object.translateX(translation.x || 0);
+                    object.translateY(translation.y || 0);
+                    object.translateZ(translation.z || 0);
+                }
 
+                // add to url_obj_map
+                self.url_obj_map[obj_info.url] = { "obj" : object, "info" : obj_info };
+
+                //------------
+                // wait for all to be loaded
                 ++load_cnt;
-
                 if (load_cnt === load_total && on_complete) {
                     on_complete();
                 }
 
-            }, this._loader_onProgress, this._loader_onError);
+            }.bind(this, obj_info), this._loader_onProgress, this._loader_onError);
     }
 };
 
 Web3DViewer.prototype._process_object = function(object, obj_info) {
 
+    var self = this;
     // translation
     var translation = obj_info['translation']
     if (translation) {
@@ -92,7 +105,7 @@ Web3DViewer.prototype._process_object = function(object, obj_info) {
         object.translateZ(translation.z || 0);
     }
 
-    console.log(this);
+    console.log(self);
 
     // add to url_obj_map
     this.url_obj_map[obj_info.url] =  { "obj" : object, "info" : obj_info };
@@ -109,7 +122,7 @@ Web3DViewer.prototype._loader_onError = function(xhr) {
 
 Web3DViewer.prototype._render = function() {
     if (this.three.object_root) {
-        requestAnimationFrame(this._render);
+        requestAnimationFrame(this._render.bind(this));
 
         //----------------//
         // animation loop //
@@ -151,39 +164,44 @@ Web3DViewer.prototype.show = function(obj_info_list) {
     }
 
     // construct a callback function to show all elements
+    var self = this;
     function show_all() {
         // create new object_root
-        var object_root = this.three.object_root = new THREE.Object3D();
+        var object_root = self.three.object_root = new THREE.Object3D();
 
         // add all objects to object_root
         for (var i = 0, len = obj_info_list.length; i < len; ++i) {
             var obj_info = obj_info_list[i];
-            var obj = this.url_obj_map[obj_info.url];
+            var obj = self.url_obj_map[obj_info.url];
 
             if (!obj) {
                 throw "Empty object encountered while all objects should have been loaded";
             }
 
-            object_root.add(obj);
+            object_root.add(obj.obj);
         }
 
         // add the object_root back to the scene
-        this.three.scene.add(object_root);
+        self.three.scene.add(object_root);
 
         // adjust the camera based on the object_root
         var box = new THREE.Box3().setFromObject(object_root);
         var box_size = box.size();
         var box_cntr = box.center();
-        var camera = this.three.camera;
+        var camera = self.three.camera;
         camera.position.x = box_cntr.x;
         camera.position.y = box_cntr.y;
         camera.position.z = 1 + Math.max(box_size.x, box_size.y, box_size.z);
 
         // start render
-        this._render();
+        self._render();
     };
 
-    this._load(obj_to_load_arr, show_all);
+    if (obj_to_load_arr.length === 0) {
+        show_all();
+    } else {
+        this._load(obj_to_load_arr, show_all);
+    }
 
 };
 
