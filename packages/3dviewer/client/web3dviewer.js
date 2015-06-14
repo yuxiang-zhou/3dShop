@@ -1,7 +1,7 @@
 // Web3DViewer.js
 // Encapsulate all logic on the Web3DViewer module.
 
-var Web3DViewer = function () {
+Web3DViewer = function () {
     // declare all the class members
     this.state = {
         camera_move_fwd   : false,
@@ -65,11 +65,12 @@ Web3DViewer.prototype._load = function(obj_info_list, on_complete) {
         var loader = new THREE.OBJMTLLoader(undefined, obj_info.url_map);
 
         var load_cnt = 0, load_total = len;
+        var processor_fn = this._process_object;
 
         loader.load(obj_info.url, function(object) {
                 console.log("Finish loading " + obj_info.url);
 
-                this._process_object(object, obj_info);
+                processor_fn(object, obj_info);
 
                 ++load_cnt;
 
@@ -90,6 +91,8 @@ Web3DViewer.prototype._process_object = function(object, obj_info) {
         object.translateY(translation.y || 0);
         object.translateZ(translation.z || 0);
     }
+
+    console.log(this);
 
     // add to url_obj_map
     this.url_obj_map[obj_info.url] =  { "obj" : object, "info" : obj_info };
