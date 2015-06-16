@@ -216,7 +216,7 @@ load3DFiles = ->
 
   return mediaArray
 
-mediadb: ->
+mediadb = ->
   files = load3DFiles().fetch()
   file_table = {}
 

@@ -42,7 +42,7 @@ var mod_list = [
     // ],
 ];
 
-Template.viewer3d.onCreatsed(function() {
+Template.viewer3d.onCreated(function() {
     mod_list.push(this.data.models);
     this.viewer = new Web3DViewer();
 });
