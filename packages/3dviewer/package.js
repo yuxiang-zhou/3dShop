@@ -10,23 +10,6 @@ Package.onUse(function (api) {
     //core meteor packages
     api.use("coffeescript");
     api.use("jquery");
-    //core meteor packages
-    // api.use("meteor-platform");
-    // api.use("oauth-encryption");
-    // api.use("accounts-base");
-    // api.use("accounts-password");
-    // api.use("accounts-ui-unstyled");
-    // api.use("less");
-    // api.use("http");
-    // api.use("coffeescript");
-    // api.use("underscore");
-    // api.use("blaze");
-    // api.use("jquery");
-    // api.use("email");
-    // api.use("check");
-    // api.use("browser-policy");
-    // api.use("amplify@1.0.0");
-    // api.use("reactive-var");
 
     api.use("templating", "client");
 
@@ -39,11 +22,15 @@ Package.onUse(function (api) {
         "client/MTLLoader.js",
         "client/OBJLoader.js",
         "client/OBJMTLLoader.js",
+        "client/web3dviewer.js",
 
         "viewer_template.css",
-        "viewer_template.html",
-        "viewer_template.coffee"
+        "viewer_template_new.html",
+        "viewer_template_new.js",
+        //"viewer_template.html",
+        //"viewer_template.coffee"
     ], ['client']);
 
     api.export(['THREE'], 'client');
+    api.export(['Web3DViewer'], 'client');
 });

@@ -54,6 +54,10 @@ Router.map ->
     @route 'demo3d',
         path: 'demo3d'
         template: "demo3d"
+
+    @route 'canvasdemo',
+        path: 'canvasdemo'
+        template: 'canvasdemo'
        
     # custom 404 Page
     @route "notFound",

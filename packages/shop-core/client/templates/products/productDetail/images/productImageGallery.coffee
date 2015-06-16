@@ -216,17 +216,23 @@ load3DFiles = ->
 
   return mediaArray
 
+mediadb: ->
+  files = load3DFiles().fetch()
+  file_table = {}
+
+  for f in files
+    name = f.original.name
+    file_table[name] = f.url()
+
+  return file_table
 
 Template.image3D.helpers
   media3d: ->
     return loadObjFiles()
 
-  mediadb: ->
-    files = load3DFiles().fetch()
-    file_table = {}
+  model: ->
+    return [{
+        url:this
+        url_map: mediadb()
+      }]
 
-    for f in files
-      name = f.original.name
-      file_table[name] = f.url()
-
-    return JSON.stringify file_table

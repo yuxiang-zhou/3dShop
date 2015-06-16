@@ -1,3 +1,4 @@
+
 Template.viewer3d.rendered = ->
     # container
     container = null
@@ -12,6 +13,12 @@ Template.viewer3d.rendered = ->
     moveBackward = false
     zoomSpeed = 500
 
+    # array of Object3D
+    mdlObjs = []
+
+    # final object
+    object = null
+
     # sence
     scene = null
 
@@ -19,15 +26,16 @@ Template.viewer3d.rendered = ->
     ycam = 0
     camera = null
 
-    # objects
-    object = null
-
     # Clock
     clock = new THREE.Clock()
     # container
     container = Template.instance().$('.container3d').get(0)
-    imgurl = container.getAttribute('src')
-    imgHash = JSON.parse(container.getAttribute('data-db'))
+
+    mdlArr = JSON.parse(container.getAttribute('models'))
+    dataMapArr = JSON.parse(container.getAttribute('datamaps'))
+
+    #imgurl = container.getAttribute('src')
+    #imgHash = JSON.parse(container.getAttribute('data-db'))
     width = container.clientWidth
     height = container.clientHeight
 
@@ -54,8 +62,6 @@ Template.viewer3d.rendered = ->
 
     onError = (xhr) ->
         console.log 'error'
-
-    loader = new THREE.OBJMTLLoader(undefined, imgHash)
 
     # renderer
     renderer = new THREE.WebGLRenderer
@@ -119,32 +125,71 @@ Template.viewer3d.rendered = ->
 
         renderer.render scene, camera
 
-    # load obj
-    loader.load imgurl, (( obj ) ->
-            object = obj
+    # when all 3D models are loaded
+    onAllLoaded = ->
+        if mdlObjs.length != mdlArr.length
+            return
 
-            box = new THREE.Box3().setFromObject object
+        object = new THREE.Object3D()
+        sizex = 0
+        sizey = 0
+        sizez = 0
 
-            meanx = (box.min.x + box.max.x) / 2
-            meany = (box.min.y + box.max.y) / 2
-            meanz = (box.min.z + box.max.z) / 2
+        # read human body model
+        #ugly code
+        body_mdl = mdlObjs[0]
+        box = new THREE.Box3().setFromObject body_mdl
 
-            sizex = box.max.x - box.min.x
-            sizey = box.max.y - box.min.y
-            sizez = box.max.z - box.min.z
+        # update the max size
+        size = box.size()
+        sizex = size.x if size.x > sizex
+        sizey = size.y if size.y > sizey
+        sizez = size.z if size.z > sizez
+
+        # move to the center
+        center = box.center()
+        body_mdl.translateX -center.x
+        body_mdl.translateY -center.y
+        body_mdl.translateZ -center.z
+
+        object.add body_mdl
+
+        # read clothes models
+        for obj in mdlObjs[1..]
+            box = new THREE.Box3().setFromObject obj
+
+            # update the max size
+            size = box.size()
+            sizex = size.x if size.x > sizex
+            sizey = size.y if size.y > sizey
+            sizez = size.z if size.z > sizez
+
+            # move to the center
+            # center = box.center()
+            obj.translateX -center.x
+            obj.translateY -center.y
+            obj.translateZ -center.z
+
+            object.add obj
+
+        scene.add object
+
+        camera.lookAt( new THREE.Vector3( 0, 0, 0 ) )
+        camera.position.z = 1 + Math.max sizex, sizey, sizez
+        console.log 'Finished Loading'
+
+        animate()
+
+    # load data
+    for i in [0..mdlArr.length-1]
+        dataMap = if dataMapArr then dataMapArr[i] else undefined
+        loader = new THREE.OBJMTLLoader(undefined, dataMap)
+        loader.load mdlArr[i], (( obj ) ->
+                console.log "finish " + i
+                mdlObjs.push obj
+                onAllLoaded()
+            ), onProgress, onError
+
+    console.log("Done!!!!!!!!!");
 
 
-
-            object.translateX -meanx
-            object.translateY -meany 
-            object.translateZ -meanz
-
-            camera.lookAt( new THREE.Vector3( 0, 0, 0 ) )
-            camera.position.z = 1 + Math.max sizex, sizey, sizez
-
-            console.log 'Finished Loading'
-
-            scene.add object
-
-            animate()
-        ), onProgress, onError
