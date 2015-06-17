@@ -231,8 +231,8 @@ Template.image3D.helpers
     return loadObjFiles()
 
   model: ->
-    return [{
-        url:this
+    return [[{
+        url: @url()
         url_map: mediadb()
-      }]
+      }]]
 
