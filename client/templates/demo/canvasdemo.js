@@ -1,69 +1,56 @@
-
-
-
-
-
-
-function resizeCanvas() //函数：获取尺寸
-{
-    //获取窗口宽度
-    if (window.innerWidth)
-       winWidth = window.innerWidth;
-    else if ((document.body) && (document.body.clientWidth))
-       winWidth = document.body.clientWidth;
-    //获取窗口高度
-    if (window.innerHeight)
-       winHeight = window.innerHeight;
-    else if ((document.body) && (document.body.clientHeight))
-       winHeight = document.body.clientHeight;
-
-    //通过深入Document内部对body进行检测，获取窗口大小
-    if (document.documentElement  && document.documentElement.clientHeight &&
-                                      document.documentElement.clientWidth)
+Template.canvasdemo.onRendered(function(){
+    function resizeCanvas() //函数：获取尺寸
     {
-     winHeight = document.documentElement.clientHeight;
-     winWidth = document.documentElement.clientWidth;
+        //获取窗口宽度
+        if (window.innerWidth)
+           winWidth = window.innerWidth;
+        else if ((document.body) && (document.body.clientWidth))
+           winWidth = document.body.clientWidth;
+        //获取窗口高度
+        if (window.innerHeight)
+           winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+           winHeight = document.body.clientHeight;
+
+        //通过深入Document内部对body进行检测，获取窗口大小
+        if (document.documentElement  && document.documentElement.clientHeight &&
+                                          document.documentElement.clientWidth)
+        {
+         winHeight = document.documentElement.clientHeight;
+         winWidth = document.documentElement.clientWidth;
+        }
+
+        //结果输出至两个文本框
+        // console.log(winHeight);
+        // console.log(winWidth);
+        $("#app").attr("style","height: "+winHeight+"px");
+        var canvasHeight = $("#canvascontainer").height();
+        var canvasWidth = $("#canvascontainer").width();
+        var canvas = document.getElementById("canvas");
+        canvas.height = canvasHeight;
+        canvas.width = canvasWidth;
+
     }
 
-    //结果输出至两个文本框
-    // console.log(winHeight);
-    // console.log(winWidth);
-    $("#app").attr("style","height: "+winHeight+"px");
-    var canvasHeight = winHeight * 5 / 12;
-    var canvasWidth = winWidth * 5 / 12;
-    var canvas = document.getElementById("canvas");
-    canvas.height = canvasHeight;
-    canvas.width = canvasWidth;
 
-}
+    function addResizeEvent(selector){
+        YUI().use('resize',function(Y){
+            //handles resize function here
+            var resize = new Y.Resize({
+                node: selector
+            });
 
+            resize.plug(Y.Plugin.ResizeConstrained, {
+                preserveRatio: true
+            });
 
-function addResizeEvent(selector){
-	YUI().use('resize',function(Y){
-		//handles resize function here
-		var resize = new Y.Resize({
-    		node: selector
-    	});
+            resize.on("resize:resize",function (e) {
+                
+            })
+        });     
+    }
 
-    	resize.plug(Y.Plugin.ResizeConstrained, {
-	        preserveRatio: true
-    	});
-
-    	resize.on("resize:resize",function (e) {
-    		
-    	})
-	});		
-}
-
-
-
-
-
-
-               //调用函数，获取数值
-window.onresize=resizeCanvas;
-
-$(document).ready(function(){
+    
     resizeCanvas();
     //varible for img id
     var imgcount = 0;
@@ -120,7 +107,7 @@ $(document).ready(function(){
             imageBottom = imageY + imageHeight
             draw(true, false);
         }
-        imgArray.push(img);  
+        imgArray.push(img);
     }
 
 
@@ -130,7 +117,7 @@ $(document).ready(function(){
         for (x in imgArray){
             // clear the canvas
             var img = imgArray[x];
-
+            console.log(x);
             // draw the image
             ctx.drawImage(img, 0, 0, img.width, img.height, imageX, imageY, imageWidth, imageHeight);
 
@@ -302,7 +289,4 @@ $(document).ready(function(){
     $("#canvas").mouseout(function (e) {
         handleMouseOut(e);
     });
-
-
-	
 });
