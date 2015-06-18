@@ -1,127 +1,40 @@
-/*
-var CanvasDemo = function() {
-	var YD = YAHOO.util.Dom;
-	var YE = YAHOO.util.Event;
-	var canvas1;
-	var img = [];
-	return {
-		init: function() {
-			canvas1 = new Canvas.Element();
-			canvas1.init('canvid1',  { width: 589, height: 589});			
-			img[img.length] = new Canvas.Img('img1', {});
-			img[img.length] = new Canvas.Img('img2', {});
-			img[img.length] = new Canvas.Img('img3', {});
-			//img[img.length] = new Canvas.Img('bg', {});
-			img[img.length] = new Canvas.Img('img4', {});
-			img[img.length] = new Canvas.Img('img5', {});
-		
-			
-			
-			
-			
-			
-			// @param array of images ToDo: individual images
-			
-			canvas1.addImage(img[0]);
-			canvas1.addImage(img[1]);
-			canvas1.addImage(img[2]);
-			//canvas1.setCanvasBackground(img[3]);
-			canvas1.addImage(img[4]);
-			
-		
-			
-			
-			
-			
-			this.initEvents();
-		},
-		initEvents: function() {
-			YE.on('togglebg','click', this.toggleBg, this, true);
-			YE.on('showcorners','click', this.showCorners, this, true);
-			YE.on('togglenone','click', this.toggleNone, this, true);
-			YE.on('toggleborders','click', this.toggleBorders, this, true);
-			YE.on('togglepolaroid','click', this.togglePolaroid, this, true);
-			YE.on('pngbutton','click', function() { this.convertTo('png') }, this, true);
-			YE.on('jpegbutton','click', function() { this.convertTo('jpeg') }, this, true);
-		},
-		switchBg: function() {
-			canvas1.fillBackground = (canvas1.fillBackground) ? false : true;							
-			canvas1.renderAll();
-		},
-		
-		//! insert these functions to the library. No access to _aImages should be done from here
-		showCorners: function() {
-			this.cornersvisible = (this.cornersvisible) ? false : true;
-			for (var i = 0, l = canvas1._aImages.length; i < l; i += 1) {
-				canvas1._aImages[i].setCornersVisibility(this.cornersvisible);
-			}
-			canvas1.renderAll();
-		},
-		toggleNone: function() {
-			for (var i = 0, l = canvas1._aImages.length; i < l; i += 1) {
-				canvas1._aImages[i].setBorderVisibility(false);
-			}
-			canvas1.renderAll();
-		},
-		toggleBorders: function() {
-			for (var i = 0, l = canvas1._aImages.length; i < l; i += 1) {
-				canvas1._aImages[i].setBorderVisibility(true);
-			}
-			canvas1.renderAll();
-		},
-		togglePolaroid: function() {
-			for (var i = 0, l = canvas1._aImages.length; i < l; i += 1) {
-				canvas1._aImages[i].setPolaroidVisibility(true);
-			}
-			canvas1.renderAll();
-		},
-		convertTo: function(format) {
-			var imgData = canvas1.canvasTo(format);
-			window.open(imgData, "_blank");
-		},
-		whatever: function(e, o) {
-			// console.log(e);
-			// console.log(o);
-		}
-	}
-}();
 
-YAHOO.util.Event.on(window, 'load', CanvasDemo.init, CanvasDemo, true);
-*/
-var winWidth = 0;
-var winHeight = 0;
 
-function findDimensions() //函数：获取尺寸
+
+
+
+
+function resizeCanvas() //函数：获取尺寸
 {
-     //获取窗口宽度
-     if (window.innerWidth)
-           winWidth = window.innerWidth;
-     else if ((document.body) && (document.body.clientWidth))
-           winWidth = document.body.clientWidth;
-     //获取窗口高度
-     if (window.innerHeight)
-           winHeight = window.innerHeight;
-     else if ((document.body) && (document.body.clientHeight))
-           winHeight = document.body.clientHeight;
+    //获取窗口宽度
+    if (window.innerWidth)
+       winWidth = window.innerWidth;
+    else if ((document.body) && (document.body.clientWidth))
+       winWidth = document.body.clientWidth;
+    //获取窗口高度
+    if (window.innerHeight)
+       winHeight = window.innerHeight;
+    else if ((document.body) && (document.body.clientHeight))
+       winHeight = document.body.clientHeight;
 
-     //通过深入Document内部对body进行检测，获取窗口大小
-     if (document.documentElement  && document.documentElement.clientHeight &&
-                                          document.documentElement.clientWidth)
-     {
-         winHeight = document.documentElement.clientHeight;
-         winWidth = document.documentElement.clientWidth;
-     }
+    //通过深入Document内部对body进行检测，获取窗口大小
+    if (document.documentElement  && document.documentElement.clientHeight &&
+                                      document.documentElement.clientWidth)
+    {
+     winHeight = document.documentElement.clientHeight;
+     winWidth = document.documentElement.clientWidth;
+    }
 
-     //结果输出至两个文本框
-     // console.log(winHeight);
-     // console.log(winWidth);
-}
+    //结果输出至两个文本框
+    // console.log(winHeight);
+    // console.log(winWidth);
+    $("#app").attr("style","height: "+winHeight+"px");
+    var canvasHeight = winHeight * 5 / 12;
+    var canvasWidth = winWidth * 5 / 12;
+    var canvas = document.getElementById("canvas");
+    canvas.height = canvasHeight;
+    canvas.width = canvasWidth;
 
-function resizeCanvas(){
-	findDimensions();
-	//console.log($("#app").attr("style"));
-	$("#app").attr("style","height: "+winHeight+"px");
-	//console.log(winHeight);
 }
 
 
@@ -151,56 +64,244 @@ function addResizeEvent(selector){
 window.onresize=resizeCanvas;
 
 $(document).ready(function(){
-	//varible for img id
-	var imgcount = 0;
+    resizeCanvas();
+    //varible for img id
+    var imgcount = 0;
+    var winWidth = 0;
+    var winHeight = 0;
 
-	resizeCanvas();
-	YUI().use('dd-delegate', 'dd-constrain','event',function(Y) {
-	    
-		// --------------drag and drop functions here---------------------
-	    var del = new Y.DD.Delegate({
-	        container: '#canvas',
-	        nodes: '.yui3-resize-wrapper'
-	    });
-	    del.dd.plug(Y.Plugin.DDConstrained, {
-        	constrain2node: '#canvas'
-    	});
-    	//----------------------------------------------------------------
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
 
-    	//event listeners,handle add Image function when image is clicked-
+    var canvasOffset = $("#canvas").offset();
+    var offsetX = canvasOffset.left;
+    var offsetY = canvasOffset.top;
 
-    	var clickableimg = Y.all(".thumbnail");
-
-    	clickableimg.on("click",function(e){
-    		var src = e.target._node.src;
-    		if (!src){
-    			src = $(e.target._node).children().attr("src");
-    		}
-    		$("#canvas").append("<img class='canvasimg' id='img"+imgcount+"' src='"+src+"'/>");
-    		var imgid = "#img"+imgcount;
-    		addResizeEvent(imgid);
-    		imgcount++;
-    	});
-
-    	var jpegbutton = Y.one("#jpegbutton");
-
-    	jpegbutton.on("click",function(e){
-    		console.log("i am here");
-        // html2canvas(document.querySelector("#app"), {canvas: canvas}).then(function(canvas) {
-        //     console.log('Drew on the existing canvas');
-        // });
-        html2canvas($("#canvascontainer"),{
-        	onrendered: function(canvas) {
-        		var imageurl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");   
-                window.location.href=imageurl; // it will save locally  
-        		console.log(imageurl);
-        	}
-        })
-    	});
+    var startX;
+    var startY;
+    var isDown = false;
 
 
-	});
+    var pi2 = Math.PI * 2;
+    var resizerRadius = 5;
+    var rr = resizerRadius * resizerRadius;
+    var draggingResizer = {
+        x: 0,
+        y: 0
+    };
+    var imageX = 50;
+    var imageY = 50;
+    var imageWidth, imageHeight, imageRight, imageBottom;
+    var draggingImage = false;
+    var startX;
+    var startY;
+    var imgArray = new Array();
 
+    //add event listners to thumbnails
+    var thumbnail = document.getElementsByClassName("thumbnail");
+
+    var myFunction = function() {
+        addImage($(this).children()[0].src);
+    };
+
+    for(var i=0;i<thumbnail.length;i++){
+        thumbnail[i].addEventListener('click', myFunction, false);
+    }
+
+
+    function addImage(src){
+        console.log(src);
+        var img = new Image();
+        img.src = src;
+        img.onload = function () {
+            imageWidth = img.width;
+            imageHeight = img.height;
+            imageRight = imageX + imageWidth;
+            imageBottom = imageY + imageHeight
+            draw(true, false);
+        }
+        imgArray.push(img);  
+    }
+
+
+    //all kinds of helper functions
+    function draw(withAnchors, withBorders) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (x in imgArray){
+            // clear the canvas
+            var img = imgArray[x];
+
+            // draw the image
+            ctx.drawImage(img, 0, 0, img.width, img.height, imageX, imageY, imageWidth, imageHeight);
+
+            // optionally draw the draggable anchors
+            if (withAnchors) {
+                drawDragAnchor(imageX, imageY);
+                drawDragAnchor(imageRight, imageY);
+                drawDragAnchor(imageRight, imageBottom);
+                drawDragAnchor(imageX, imageBottom);
+            }
+
+            // optionally draw the connecting anchor lines
+            if (withBorders) {
+                ctx.beginPath();
+                ctx.moveTo(imageX, imageY);
+                ctx.lineTo(imageRight, imageY);
+                ctx.lineTo(imageRight, imageBottom);
+                ctx.lineTo(imageX, imageBottom);
+                ctx.closePath();
+                ctx.stroke();
+            }
+        }
+
+    }
+
+    function drawDragAnchor(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, resizerRadius, 0, pi2, false);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function anchorHitTest(x, y) {
+
+        var dx, dy;
+
+        // top-left
+        dx = x - imageX;
+        dy = y - imageY;
+        if (dx * dx + dy * dy <= rr) {
+            return (0);
+        }
+        // top-right
+        dx = x - imageRight;
+        dy = y - imageY;
+        if (dx * dx + dy * dy <= rr) {
+            return (1);
+        }
+        // bottom-right
+        dx = x - imageRight;
+        dy = y - imageBottom;
+        if (dx * dx + dy * dy <= rr) {
+            return (2);
+        }
+        // bottom-left
+        dx = x - imageX;
+        dy = y - imageBottom;
+        if (dx * dx + dy * dy <= rr) {
+            return (3);
+        }
+        return (-1);
+
+    }
+
+
+    function hitImage(x, y) {
+        return (x > imageX && x < imageX + imageWidth && y > imageY && y < imageY + imageHeight);
+    }
+
+
+    function handleMouseDown(e) {
+        startX = parseInt(e.clientX - offsetX);
+        startY = parseInt(e.clientY - offsetY);
+        draggingResizer = anchorHitTest(startX, startY);
+        draggingImage = draggingResizer < 0 && hitImage(startX, startY);
+    }
+
+    function handleMouseUp(e) {
+        draggingResizer = -1;
+        draggingImage = false;
+        draw(true, false);
+    }
+
+    function handleMouseOut(e) {
+        handleMouseUp(e);
+    }
+
+    function handleMouseMove(e) {
+
+        if (draggingResizer > -1) {
+
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
+
+            // resize the image
+            switch (draggingResizer) {
+                case 0:
+                    //top-left
+                    imageX = mouseX;
+                    imageWidth = imageRight - mouseX;
+                    imageY = mouseY;
+                    imageHeight = imageBottom - mouseY;
+                    break;
+                case 1:
+                    //top-right
+                    imageY = mouseY;
+                    imageWidth = mouseX - imageX;
+                    imageHeight = imageBottom - mouseY;
+                    break;
+                case 2:
+                    //bottom-right
+                    imageWidth = mouseX - imageX;
+                    imageHeight = mouseY - imageY;
+                    break;
+                case 3:
+                    //bottom-left
+                    imageX = mouseX;
+                    imageWidth = imageRight - mouseX;
+                    imageHeight = mouseY - imageY;
+                    break;
+            }
+
+            if(imageWidth<25){imageWidth=25;}
+            if(imageHeight<25){imageHeight=25;}
+
+            // set the image right and bottom
+            imageRight = imageX + imageWidth;
+            imageBottom = imageY + imageHeight;
+
+            // redraw the image with resizing anchors
+            draw(true, true);
+
+        } else if (draggingImage) {
+
+            imageClick = false;
+
+            mouseX = parseInt(e.clientX - offsetX);
+            mouseY = parseInt(e.clientY - offsetY);
+
+            // move the image by the amount of the latest drag
+            var dx = mouseX - startX;
+            var dy = mouseY - startY;
+            imageX += dx;
+            imageY += dy;
+            imageRight += dx;
+            imageBottom += dy;
+            // reset the startXY for next time
+            startX = mouseX;
+            startY = mouseY;
+
+            // redraw the image with border
+            draw(false, true);
+
+        }
+
+
+    }
+
+
+    $("#canvas").mousedown(function (e) {
+        handleMouseDown(e);
+    });
+    $("#canvas").mousemove(function (e) {
+        handleMouseMove(e);
+    });
+    $("#canvas").mouseup(function (e) {
+        handleMouseUp(e);
+    });
+    $("#canvas").mouseout(function (e) {
+        handleMouseOut(e);
+    });
 
 
 	

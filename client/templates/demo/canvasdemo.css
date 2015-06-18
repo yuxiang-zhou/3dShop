@@ -1,5 +1,5 @@
 body 	{ font:"Lucida Grande", "Trebuchet MS", Verdana, sans-serif; }
-canvas 	{ background-color: transparent; border: 1px solid gray;width:100%;}
+canvas 	{ background-color: transparent; border: 1px solid gray;}
 canvas.resize-ne { cursor: ne-resize; }
 canvas.resize-se { cursor: se-resize; }
 canvas.resize-sw { cursor: sw-resize; }
@@ -55,19 +55,9 @@ fieldset { width: 280px; float: left; }
 	height:150px;
 }
 
-.canvasimg {display: block; cursor: move}
-
 .firstrow{
 	height:20%;
 }
 .secondrow{
 	height:80%;
-}
-
-#canvas{
-	height:100%;	
-}
-
-.yui3-resize-wrapper{
-	position: absolute;
 }

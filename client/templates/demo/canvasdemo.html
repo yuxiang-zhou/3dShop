@@ -1,54 +1,52 @@
 <template name="canvasdemo">
-	<div id="app" class="container-fluid">
-		<div class="row" style="margin: 30px;height: 100%" >
-			<div class="col-md-8 maincolumn" id="container" align="center" style="padding: 10px">
-				<div id="optionpanel" class="container-fluid firstrow">
-					<div class="container btn-group btn-group-lg row" role="group">
-						<input type="button" id="jpegbutton" value="保存"/>
-						<span><input type="checkbox" name="some_name" value="" id="showcorners" /> 显示角落</span>
-					</div>
-								
-				</div>
-				<div id="canvascontainer" class="container-fluid secondrow">
-					<div class="row" style="height:100%">
-						<div id="canvas" class=".col-md-offset-3">
-<!-- 								<img class="canvasimg" id="img4" src="2.png" />
-							<img class="canvasimg" id="img1" src="1.png" /> -->
-						</div>
-						<!--<canvas id="canvid1"></canvas>-->
-					</div>					
-				</div>
-			</div>
-			<div class="col-md-4 maincolumn">
-				<div id="panel" class="firstrow">
-					<ul class="nav nav-tabs" id="tabspanel">
-					  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">选择宝贝</a></li>
-					  <li role="presentation"><a href="#bookmarked" aria-controls="bookmarked" role="tab" data-toggle="tab">收藏</a></li>
-					</ul>
-				</div>
-				<div class="tab-content secondrow">
-				  <div role="tabpanel" class="tab-pane active" id="home">
-				  	<div class="row">
-				  		<div class="col-xs-6 thumbnailcol">
-				  			<a href="#" class="thumbnail">
-				  				<img src="e79cc935-51bd-474e-af42-c52e15b852ef--100x100.jpg" alt="...">
-				  			</a>
-				  		</div>
-				  		<div class="col-xs-6 thumbnailcol">
-				  			<a href="#" class="thumbnail">
-				  				<img src="f5b309d6-902b-4034-ae31-8855668273e6--100x100.jpg" alt="...">
-				  			</a>
-				  		</div>
-				  	</div>
-				  </div>
-				  <div role="tabpanel" class="tab-pane" id="bookmarked">
-					<span>test2</span>
-				  </div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-		</div>
-	</div>
+    <div id="app" class="container-fluid">
+        <div class="row" style="margin: 30px;height: 100%" >
+            <div class="col-md-8 maincolumn" id="container" align="center" style="padding: 10px">
+                <div id="optionpanel" class="container-fluid firstrow">
+                    <div class="container btn-group btn-group-lg row" role="group">
+                        <input type="button" id="jpegbutton" value="保存"/>
+                        <span><input type="checkbox" name="some_name" value="" id="showcorners" /> 显示角落</span>
+                    </div>
+                                
+                </div>
+                <div id="canvascontainer" class="container-fluid secondrow">
+                    <div class="row" style="height:100%">
+                        <canvas id="canvas" class=".col-md-offset-3">
+
+                        </canvas>
+                    </div>                  
+                </div>
+            </div>
+            <div class="col-md-4 maincolumn">
+                <div id="panel" class="firstrow">
+                    <ul class="nav nav-tabs" id="tabspanel">
+                      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">选择宝贝</a></li>
+                      <li role="presentation"><a href="#bookmarked" aria-controls="bookmarked" role="tab" data-toggle="tab">收藏</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content secondrow">
+                  <div role="tabpanel" class="tab-pane active" id="home">
+                    <div class="row">
+                        <div class="col-xs-6 thumbnailcol">
+                            <a href="#" class="thumbnail">
+                                <img src="6.jpg" alt="...">
+                            </a>
+                        </div>
+                        <div class="col-xs-6 thumbnailcol">
+                            <a href="#" class="thumbnail">
+                                <img src="7.jpg" alt="...">
+                            </a>
+                        </div>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="bookmarked">
+                    <span>test2</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+    </div>
 </template>
 

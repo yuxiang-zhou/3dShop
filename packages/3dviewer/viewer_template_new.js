@@ -56,7 +56,7 @@ Template.viewer3d.onRendered(function() {
 Template.viewer3d.helpers({
     curr_id : function() {
         var self = Template.instance();
-        
+
         return self.i;
     }.bind(this)
 });
@@ -67,5 +67,7 @@ Template.viewer3d.events({
 
         self.i = ++self.i % self.mod_list.length;
         self.viewer.show(self.mod_list[self.i]);
+
+        Tracker.flush();
     }
 });
