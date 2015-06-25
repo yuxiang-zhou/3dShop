@@ -45,7 +45,7 @@
 Template.viewer3d.onCreated(function() {
     this.mod_list = this.data.models;
     this.viewer = new Web3DViewer();
-    this.i = 0;
+    this.i = new ReactiveVar(0);
 });
 
 Template.viewer3d.onRendered(function() {
@@ -54,20 +54,63 @@ Template.viewer3d.onRendered(function() {
 });
 
 Template.viewer3d.helpers({
-    curr_id : function() {
+    curr_id: function() {
         var self = Template.instance();
 
-        return self.i;
-    }.bind(this)
+        return self.i.get()+1;
+    },
+
+    is_many: function(){
+        var self = Template.instance();
+
+        return self.mod_list.length > 1;
+    },
+
+    nModels: function(){
+        var self = Template.instance();
+
+        return self.mod_list.length;
+    },
+
+    buttons: function(){
+        var self = Template.instance();
+        var retval = [];
+
+        for (var i = 0; i < self.mod_list.length; i++) {
+            retval.push({
+                index: i
+            });
+        };
+
+        return retval;
+    },
+
+    active_model: function(){
+        var self = Template.instance();
+
+        return this.index == self.i.get() ? 'btn-primary' : 'btn-default';
+    }
 });
 
 Template.viewer3d.events({
     'click #next-btn' : function(event) {
         var self = Template.instance();
 
-        self.i = ++self.i % self.mod_list.length;
-        self.viewer.show(self.mod_list[self.i]);
+        self.i.set((self.i.get()+1) % self.mod_list.length);
+        self.viewer.show(self.mod_list[self.i.get()]);
+    },
 
-        Tracker.flush();
+    'click #prev-btn' : function(event) {
+        var self = Template.instance();
+
+        self.i.set((self.i.get()-1) % self.mod_list.length);
+        self.viewer.show(self.mod_list[self.i.get()]);
+    },
+
+    'click .switcher' : function(event) {
+        var self = Template.instance();
+
+        self.i.set(this.index);
+        self.viewer.show(self.mod_list[self.i.get()]);
     }
 });

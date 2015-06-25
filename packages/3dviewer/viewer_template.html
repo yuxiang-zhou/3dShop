@@ -1,3 +1,20 @@
 <template name="viewer3d">
-    <div class='container3d' src="{{imgurl}}" data-db="{{db}}" models="{{mdlArr}}" datamaps="{{dataMapArr}}" oncontextmenu="return false;"></div>
+    <div class='containerViewer'>
+        <div class='container3d'></div>
+
+        <!-- Switching Displaying Model -->
+        {{#if is_many}}
+            <p>Current model id: {{curr_id}}/{{nModels}}</p>
+            <button type='button' class='btn btn-default' id='prev-btn'>prev</button>
+            {{#each buttons}}
+                <button type='button' class='btn switcher {{active_model}}'>{{index}}</button>
+            {{/each}}
+            <button type='button' class='btn btn-default' id='next-btn'>next</button>
+        {{/if}}
+
+        <!-- Customisation Panel -->
+        {{#if is_customise}}
+
+        {{/if}}
+    </div>
 </template>

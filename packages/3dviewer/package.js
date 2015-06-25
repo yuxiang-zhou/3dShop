@@ -10,6 +10,7 @@ Package.onUse(function (api) {
     //core meteor packages
     api.use("coffeescript");
     api.use("jquery");
+    api.use("reactive-var");
 
     api.use("templating", "client");
 
@@ -25,8 +26,8 @@ Package.onUse(function (api) {
         "client/web3dviewer.js",
 
         "viewer_template.css",
-        "viewer_template_new.html",
-        "viewer_template_new.js",
+        "viewer_template.html",
+        "viewer_template.js",
         //"viewer_template.html",
         //"viewer_template.coffee"
     ], ['client']);

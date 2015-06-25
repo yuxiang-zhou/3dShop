@@ -50,18 +50,23 @@ Router.map ->
             controller: ShopController
             name: page
 
-    # display products by tag
-    @route 'demo3d',
-        path: 'demo3d'
+    @route "demo3d",
+        controller: ShopController
+        path: "demo3d"
+        name: "demo3d"
         template: "demo3d"
 
-    @route 'canvasdemo',
-        path: 'canvasdemo'
-        template: 'canvasdemo'
+    @route "canvasdemo",
+        controller: ShopController
+        path: "canvasdemo"
+        name: "canvasdemo"
+        template: "canvasdemo"
 
-    @route 'changingroom',
-        path: 'changingroom'
-        template: 'changingroom'
+    @route "changingroom",
+        controller: ShopController
+        path: "changingroom"
+        name: "changingroom"
+        template: "changingroom"
        
     # custom 404 Page
     @route "notFound",

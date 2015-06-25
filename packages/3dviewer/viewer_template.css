@@ -1,7 +1,16 @@
 .container3d {
-	height: 300px;
-	width: 300px;
+	height: auto;
+	width: 100%;
+	min-height: 300px;
+	min-width: 300px;
 	border-width: 1px;
 	border-color: #000;
 	border-style: solid;
+}
+
+.containerViewer {
+	height: auto;
+	width: 100%;
+	min-height: 300px;
+	min-width: 300px;
 }

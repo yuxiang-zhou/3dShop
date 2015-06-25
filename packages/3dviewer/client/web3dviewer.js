@@ -30,7 +30,7 @@ Web3DViewer.prototype.initialise = function(dom_container, overrides) {
     overrides = overrides || {};    // default value
 
     var width  = dom_container.clientWidth;
-    var height = dom_container.clientHeight;
+    var height = Math.max(dom_container.clientHeight, 300);
 
     var container = this.dom_container = dom_container;
 
