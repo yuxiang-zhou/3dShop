@@ -97,7 +97,6 @@ Template.canvasdemo.onRendered(function(){
 
 
     function addImage(src){
-        console.log(src);
         var img = new Image();
         img.src = src;
         img.onload = function () {
@@ -117,7 +116,6 @@ Template.canvasdemo.onRendered(function(){
         for (x in imgArray){
             // clear the canvas
             var img = imgArray[x];
-            console.log(x);
             // draw the image
             ctx.drawImage(img, 0, 0, img.width, img.height, imageX, imageY, imageWidth, imageHeight);
 
