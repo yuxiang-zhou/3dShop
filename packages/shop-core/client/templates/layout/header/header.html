@@ -1,6 +1,6 @@
-<template name="layoutHeader">
+<!-- <template name="layoutHeader">
     <div class="container-fluid">
-        <div class="nav" role="navigation">
+        <div class="nav navbar-nav" role="navigation">
             <div class="row navbar-shop">
                 <div class="navbar-brand">{{> headerBrand}}</div>
                 <div class="navbar-cart">{{> cartIcon}}</div>
@@ -8,9 +8,93 @@
                 <div class="navbar-accounts">{{> accounts tpl="loginDropdown"}}</div>
                 <div class="navbar-languages">{{> i18nChooser}}</div>
             </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+            </div>
             <div class="row navbar-primary-tags">
                 <div class="navbar-tags">{{> headerTags}}</div>
+                <a class='btn btn-link' href="/">Home</a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Demo <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="demo3d">3D Model</a></li>
+                        <li><a href="canvasdemo">Canvas Demo</a></li>
+                        <li><a href="changingroom">Changing Room</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
+</template> -->
+
+<template name="layoutHeader">
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {{> headerBrand}}
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class=""><a href="{{pathFor 'index'}}">Home<span class="sr-only">(current)</span></a></li>
+            <li><a href="#">About</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demo <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{pathFor 'demo3d'}}">3D Model</a></li>
+                <li><a href="{{pathFor 'canvasdemo'}}">Canvas Demo</a></li>
+                <li><a href="{{pathFor 'changingroom'}}">Changing Room</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+                <div class="navbar-cart">{{> cartIcon}}</div><div class="cart-alert">{{> cartPanel}}</div>
+            </li>
+            <li>
+                <div class="navbar-accounts">{{> accounts tpl="loginDropdown"}}</div>
+            </li>
+            <!-- <li>
+                <div class="navbar-languages">{{> i18nChooser}}</div>
+            </li> -->
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li> -->
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 </template>

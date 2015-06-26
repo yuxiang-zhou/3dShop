@@ -1,7 +1,15 @@
 <template name="viewer3d">
     <div class='containerViewer'>
-        <div class='container3d'></div>
-
+        <div class='container3d'>
+            <div class='zoom-ui'>
+                <a id='btn-zoom-in' class='btn btn-default'>
+                    <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                </a>
+                <a id='btn-zoom-out' class='btn btn-default'>
+                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
         <!-- Switching Displaying Model -->
         {{#if is_many}}
             <p>Current model id: {{curr_id}}/{{nModels}}</p>

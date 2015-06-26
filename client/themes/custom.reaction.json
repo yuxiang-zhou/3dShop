@@ -3,5 +3,5 @@
   "cart":            true,
   "dashboard":       true,
   "layout":          true,
-  "products":        true
+  "products":        false
 }}

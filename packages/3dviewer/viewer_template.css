@@ -1,4 +1,5 @@
 .container3d {
+	position: relative;
 	height: auto;
 	width: 100%;
 	min-height: 300px;
@@ -13,4 +14,10 @@
 	width: 100%;
 	min-height: 300px;
 	min-width: 300px;
+}
+
+.zoom-ui {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
 }

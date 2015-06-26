@@ -203,8 +203,3 @@ Web3DViewer.prototype.show = function(obj_info_list) {
     }
 
 };
-
-
-Web3DViewer.prototype.method_name = function(first_argument) {
-    // body...
-};

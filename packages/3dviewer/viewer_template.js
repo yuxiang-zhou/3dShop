@@ -112,5 +112,29 @@ Template.viewer3d.events({
 
         self.i.set(this.index);
         self.viewer.show(self.mod_list[self.i.get()]);
+    },
+
+    'mousedown #btn-zoom-in' : function(event) {
+        var self = Template.instance();
+
+        self.viewer.state.camera_move_fwd = true;
+    },
+
+    'mouseup #btn-zoom-in' : function(event) {
+        var self = Template.instance();
+
+        self.viewer.state.camera_move_fwd = false;
+    },
+
+    'mousedown #btn-zoom-out' : function(event) {
+        var self = Template.instance();
+
+        self.viewer.state.camera_move_bwd = true;
+    },
+
+    'mouseup #btn-zoom-out' : function(event) {
+        var self = Template.instance();
+        
+        self.viewer.state.camera_move_bwd = false;
     }
 });
