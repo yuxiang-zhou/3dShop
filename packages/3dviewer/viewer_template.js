@@ -42,6 +42,17 @@
 //     // ],
 // ];
 
+function show_objs(self, objs) {
+    var loading = self.$('.loading-container');
+    loading.show();
+
+    self.viewer.show(objs);
+
+    self.viewer._loader_onComplete = function(xhr){
+        loading.hide();
+    };
+}
+
 Template.viewer3d.onCreated(function() {
     this.mod_list = this.data.models;
     this.viewer = new Web3DViewer();
@@ -49,8 +60,8 @@ Template.viewer3d.onCreated(function() {
 });
 
 Template.viewer3d.onRendered(function() {
-    this.viewer.initialise(this.$('.container3d').get(0));
-    this.viewer.show(this.mod_list[0])
+    this.viewer.initialise(self.$('.container3d').get(0));
+    show_objs(this, this.mod_list[0]);
 });
 
 Template.viewer3d.helpers({
@@ -97,21 +108,21 @@ Template.viewer3d.events({
         var self = Template.instance();
 
         self.i.set((self.i.get()+1) % self.mod_list.length);
-        self.viewer.show(self.mod_list[self.i.get()]);
+        show_objs(self, self.mod_list[self.i.get()]);
     },
 
     'click #prev-btn' : function(event) {
         var self = Template.instance();
 
         self.i.set((self.i.get()-1) % self.mod_list.length);
-        self.viewer.show(self.mod_list[self.i.get()]);
+        show_objs(self, self.mod_list[self.i.get()]);
     },
 
     'click .switcher' : function(event) {
         var self = Template.instance();
 
         self.i.set(this.index);
-        self.viewer.show(self.mod_list[self.i.get()]);
+        show_objs(self, self.mod_list[self.i.get()]);
     },
 
     'mousedown #btn-zoom-in' : function(event) {

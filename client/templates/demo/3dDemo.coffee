@@ -10,5 +10,5 @@ Template.demo3d.helpers
         #     mymodel: [[{url:'models/'+0+'/'+0+'.obj'}]]
 
         objs.push
-            mymodel: [[{url:'models/'+3+'/'+3+'.obj'}]]
+            mymodel: [[{url:'models/'+0+'/'+0+'.obj'}]]
         return objs

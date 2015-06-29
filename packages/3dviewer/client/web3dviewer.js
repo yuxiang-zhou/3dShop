@@ -34,9 +34,10 @@ Web3DViewer.prototype.initialise = function(dom_container, overrides) {
 
     var container = this.dom_container = dom_container;
 
-    var renderer = this.three.renderer = new THREE.WebGLRenderer();
+    var renderer = this.three.renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(width, height);
+    renderer.setClearColor( 0x000000, 1);
 
     var scene = this.three.scene = new THREE.Scene();
 
@@ -87,6 +88,7 @@ Web3DViewer.prototype._load = function(obj_info_list, on_complete) {
                 ++load_cnt;
                 if (load_cnt === load_total && on_complete) {
                     on_complete();
+                    this._loader_onComplete();
                 }
 
             }.bind(this, obj_info), this._loader_onProgress, this._loader_onError);
@@ -117,6 +119,10 @@ Web3DViewer.prototype._loader_onProgress = function(xhr) {
 
 Web3DViewer.prototype._loader_onError = function(xhr) {
     console.log("Error loading 3D Models");
+};
+
+Web3DViewer.prototype._loader_onComplete = function(xhr) {
+    console.log("Loading Complete");
 };
 
 Web3DViewer.prototype._render = function() {
@@ -198,6 +204,7 @@ Web3DViewer.prototype.show = function(obj_info_list) {
 
     if (obj_to_load_arr.length === 0) {
         show_all();
+        this._loader_onComplete();
     } else {
         this._load(obj_to_load_arr, show_all);
     }
