@@ -34,10 +34,9 @@ Web3DViewer.prototype.initialise = function(dom_container, overrides) {
 
     var container = this.dom_container = dom_container;
 
-    var renderer = this.three.renderer = new THREE.WebGLRenderer({ alpha: true });
+    var renderer = this.three.renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(width, height);
-    renderer.setClearColor( 0x000000, 1);
 
     var scene = this.three.scene = new THREE.Scene();
 
@@ -70,46 +69,37 @@ Web3DViewer.prototype._load = function(obj_info_list, on_complete) {
         var self = this;
 
         loader.load(obj_info.url, function(obj_info, object) {
-                console.log("Finish loading " + obj_info.url);
+            console.log("Finish loading " + obj_info.url);
 
-                // translation
-                var translation = obj_info['translation']
-                if (translation) {
-                    object.translateX(translation.x || 0);
-                    object.translateY(translation.y || 0);
-                    object.translateZ(translation.z || 0);
-                }
+            // translation
+            var translation = obj_info['translation']
+            if (translation) {
+                object.translateX(translation.x || 0);
+                object.translateY(translation.y || 0);
+                object.translateZ(translation.z || 0);
+            }
 
-                // add to url_obj_map
-                self.url_obj_map[obj_info.url] = { "obj" : object, "info" : obj_info };
+            // scale
+            var scale = obj_info['scale']
+            if (scale) {
+                object.scale.set(
+                    scale.x || 1, scale.y || 1, scale.z || 1
+                );
+            }
 
-                //------------
-                // wait for all to be loaded
-                ++load_cnt;
-                if (load_cnt === load_total && on_complete) {
-                    on_complete();
-                    this._loader_onComplete();
-                }
+            // add to url_obj_map
+            self.url_obj_map[obj_info.url] = { "obj" : object, "info" : obj_info };
 
-            }.bind(this, obj_info), this._loader_onProgress, this._loader_onError);
+            //------------
+            // wait for all to be loaded
+            ++load_cnt;
+            if (load_cnt === load_total) {
+                on_complete();
+                this._loader_onComplete();
+            }
+
+        }.bind(this, obj_info), this._loader_onProgress, this._loader_onError);
     }
-};
-
-Web3DViewer.prototype._process_object = function(object, obj_info) {
-
-    var self = this;
-    // translation
-    var translation = obj_info['translation']
-    if (translation) {
-        object.translateX(translation.x || 0);
-        object.translateY(translation.y || 0);
-        object.translateZ(translation.z || 0);
-    }
-
-    console.log(self);
-
-    // add to url_obj_map
-    this.url_obj_map[obj_info.url] =  { "obj" : object, "info" : obj_info };
 };
 
 Web3DViewer.prototype._loader_onProgress = function(xhr) {
@@ -184,6 +174,7 @@ Web3DViewer.prototype.show = function(obj_info_list) {
             }
 
             object_root.add(obj.obj);
+            if(obj.info.preview) object_root.preview = obj.info.preview;
         }
 
         // add the object_root back to the scene

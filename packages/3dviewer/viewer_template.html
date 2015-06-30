@@ -1,31 +1,43 @@
 <template name="viewer3d">
     <div class='containerViewer'>
-        <div class='container3d'>
-            <div class='loading-container'>
-                <div class='loading-ui'></div>
+        {{#if support_webgl}}
+            <div class='container3d'>
+                <div class='loading-container'>
+                    <div class='loading-ui'></div>
+                </div>
+                <div class='zoom-ui'>
+                    <a id='btn-zoom-in' class='btn btn-default'>
+                        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                    </a>
+                    <a id='btn-zoom-out' class='btn btn-default'>
+                        <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+                    </a>
+                    {{#if debug}}
+                        <a id='btn-up' class='btn btn-default'>
+                            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                        </a>
+                        <a id='btn-down' class='btn btn-default'>
+                            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                        </a>
+                    {{/if}}
+                </div>
             </div>
-            <div class='zoom-ui'>
-                <a id='btn-zoom-in' class='btn btn-default'>
-                    <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
-                </a>
-                <a id='btn-zoom-out' class='btn btn-default'>
-                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        <!-- Switching Displaying Model -->
-        {{#if is_many}}
-            <p>Current model id: {{curr_id}}/{{nModels}}</p>
-            <button type='button' class='btn btn-default' id='prev-btn'>prev</button>
-            {{#each buttons}}
-                <button type='button' class='btn switcher {{active_model}}'>{{index}}</button>
-            {{/each}}
-            <button type='button' class='btn btn-default' id='next-btn'>next</button>
-        {{/if}}
+            <!-- Switching Displaying Model -->
+            {{#if is_many}}
+                <p>Current model id: {{curr_id}}/{{nModels}}</p>
+                <button type='button' class='btn btn-default' id='prev-btn'>prev</button>
+                {{#each buttons}}
+                    <button type='button' class='btn switcher {{active_model}}'><img class='preview' src='{{preview}}' /></button>
+                {{/each}}
+                <button type='button' class='btn btn-default' id='next-btn'>next</button>
+            {{/if}}
 
-        <!-- Customisation Panel -->
-        {{#if is_customise}}
+            <!-- Customisation Panel -->
+            {{#if is_customise}}
 
+            {{/if}}
+        {{else}}
+            <span>Sorry, your browser dose not support WebGL.</span>
         {{/if}}
     </div>
 </template>

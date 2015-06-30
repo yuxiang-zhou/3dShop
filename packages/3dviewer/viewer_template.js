@@ -100,7 +100,27 @@ Template.viewer3d.helpers({
         var self = Template.instance();
 
         return this.index == self.i.get() ? 'btn-primary' : 'btn-default';
-    }
+    },
+
+    support_webgl: function(){
+        return window.WebGLRenderingContext;
+    },
+
+    debug: function(){return false;},
+
+    preview: function(){
+        var self = Template.instance();
+        var objs = self.mod_list[this.index];
+        var preview = "";
+
+        for(var i in objs){
+            var obj = objs[i];
+
+            if(obj.preview) preview = obj.preview;
+        }
+
+        return preview;
+    },
 });
 
 Template.viewer3d.events({
@@ -147,5 +167,23 @@ Template.viewer3d.events({
         var self = Template.instance();
         
         self.viewer.state.camera_move_bwd = false;
-    }
+    },
+
+    'click #btn-up' : function(event) {
+        var self = Template.instance();
+
+        var kids = self.viewer.three.object_root.children;
+        kids[kids.length - 1].position.y += 10;
+        console.log(kids[kids.length - 1].position);
+    },
+
+    'click #btn-down' : function(event) {
+        var self = Template.instance();
+        
+        var kids = self.viewer.three.object_root.children;
+        kids[kids.length - 1].position.y -= 10;
+        console.log(kids[kids.length - 1].position);
+    },
+
+
 });
