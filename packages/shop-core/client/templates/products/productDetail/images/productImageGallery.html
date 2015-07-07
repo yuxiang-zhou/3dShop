@@ -47,7 +47,11 @@
 {{/if}}
 {{#each media3d}}
   <div>
-    {{> viewer3d models=model}}
+    {{#if url}}
+      {{> viewer3d models=model}}
+    {{else}}
+      <h3>Uploading ...</h3>
+    {{/if}}
   </div>
 {{/each}}
   <hr>

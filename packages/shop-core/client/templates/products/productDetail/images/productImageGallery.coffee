@@ -231,6 +231,7 @@ Template.image3D.helpers
     return loadObjFiles()
 
   model: ->
+    console.log this
     return [[{
         url: @url()
         url_map: mediadb()

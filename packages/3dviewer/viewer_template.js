@@ -54,6 +54,7 @@ function show_objs(self, objs) {
 }
 
 Template.viewer3d.onCreated(function() {
+    console.log(this.data);
     this.mod_list = this.data.models;
     this.viewer = new Web3DViewer();
     this.i = new ReactiveVar(0);
